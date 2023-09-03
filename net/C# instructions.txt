@@ -1,0 +1,3 @@
+1-ctrl+space :to complete the word you write in visual
+2-main called by CLR so it's static and doesn't need to create object from it to call it.
+ 
