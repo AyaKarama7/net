@@ -1,0 +1,1023 @@
+*structur(struct):a way to define data tybes not defined in c++.
+*Enumeration:
+ enum days_of_week{sun,mon,tus,wen,thu,fri,sat//values of variables of tybe days_of_week};
+ int main(){days_of_week day;//day must be one of values of the enum}
+ values in enum take integer values represents its order so we can do arthmatic operation on it,for example:
+ in the previous enum sun=0,mon=1,tus=2,wen=3,thu=4,fri=5,sat=6;
+ so if day1=mon and day2=fri then day2-day1=5-1=4
+ also we can compare them as if(day1<day2)cout<"yes\n";else no-->the output is yes as 1<5
+ To input values-->we can't say cin>>day use switch/if instead like this:
+   int n;cin>>n;if(n==0)day=sun,else if(n==1)day=mon...
+ To output values-->we can't say cout<<day; use if/switch instead like this
+   if(day==0)cout<<sun;//as the value in the day is it's position in enum;
+*ch=getche()--->used to input chars only,when you press Enter it's represent char='\r' ,but in cin when Enter button isn't char.
+*diffrence between getche()--->the char you input appear on mintor,getch()-->doesn't appear,used in passwords
+*fun(){int y=0;y++} call fun //after any call y=1;
+*fun(){static int y=0;y++} call fun //y=1; call fun //y=2;//better than glopal var as glopal var can be changed in any other fun in the program
+*int x; int& fun(){return x;} --> int a=fun();//a=x  fun()=5;//x=5 -->a way to read or write on functions
+*exit(1)-->stop here and end the whole program.
+******************************************************************************************************
+*object and classes:
+*Class contains functions(member functions) and variables(member data).
+*A key feature of oop is "data hiding"-->we can create private data in the class.
+*encapsulation(Collect variables and members in the class).
+*constructor:
+  the same name of class
+  don't return values 
+  called automatically when you define new object(called once).
+  a way to give intial values to private variables
+  obj use only one cunstrctor based on the input it takes
+  ~if we define second cunstructor (take values)only ,we should it only ,try comment first cunstroctor
+  ~يعني لو عملت التاني لازم اعمل الاول بس لو معملتش كونساركتوؤ خالص فافتراضي الاول هيكون شغال من غير م اعرفه
+  ~see code for more clarification.
+*distructor:
+  like cunstroctor but it called to erase/kill object from memory
+*phantoms:شبح
+  obj used to call functions
+  when we don't know the object we call it phantom
+  in the class
+  show sum in code for more clarification.
+*const--->means the variable value doesn't change during the function
+*copy object to another object:see the code.
+*in class you can write private data after public data but you should 
+ write private (or any case you want -->public).
+*Diffrences between class and structure:
+-dfault value of variables in class is private but in struct is public.
+*when we call function from class inside the same class don't give it arguments fun(a,b)-->fun().
+*code:
+#include <iostream>
+using namespace std;
+class firstClass
+{
+    private:
+    int m;//member data
+    public:
+    /*firstClass()//cunstructor , try to comment
+    {
+        m=1;
+        //=firstClass():m(1){}
+    }
+    firstClass(int k)
+    {
+        m=k;
+    }
+	/*firstClass(int k):m(k){}*/another way to define cunstructors*/
+    firstClass(int k=1)//do the job of first 2 cunstructors if you define firstClass obj; work and if you define firstClass obj(3) also work
+    {
+        m=k;
+    }
+    ~firstClass()//distructor
+    {
+        cout<<"The object ended\n";
+    }
+    void putData()
+    {
+        cout<<"Enter value:";
+        cin>>m;
+    }
+    void setData(int k)
+    {
+        m=k;
+    }
+    void sum(firstClass obj1,firstClass obj2)//phantom 
+    {
+        m=obj1.m+obj2.m;//m here represent phantom
+    }
+    firstClass sum1(firstClass obj1)const//means the value of phantom doesn't change
+    {
+        firstClass obj2;
+        obj2.m=m+obj1.m;
+        return obj2;
+    }
+    firstClass sub(const firstClass )const;
+    firstClass mul(firstClass )const;
+    void display();//another way to declare function(declration)
+    private:
+    int a;
+    protected:
+    int b;
+    public:
+    int c;
+};
+void firstClass::display()//difintion
+{
+    cout<<"M:"<<m<<'\n';
+}
+firstClass firstClass::sub(const firstClass obj1)const
+{
+    firstClass obj2;
+    obj2.m=m-obj1.m;
+    return obj2;
+}
+firstClass firstClass::mul(firstClass obj1)const
+{
+    firstClass obj2;
+    obj2.m=m*obj1.m;
+    return obj2;
+}
+int main()
+{
+    firstClass obj1,obj2;//use first cunstructor
+    obj1.display();//default value of m=0 if we not change it in the constructor;
+    obj1.putData();//2
+    obj2.putData();//3
+    obj1.display();//2
+    obj2.display();//3
+    obj1.setData(10);//the programmer asign value to m 
+    obj1.display();//10
+    firstClass obj3(60);//use second cunstrctor
+    obj3.display();//60
+    obj3.sum(obj1,obj2);//first way to handle phantoms
+    obj3.display();
+    obj3=obj2.sum1(obj1);//second way to handle phantoms
+    obj3.display();
+    firstClass s1=obj1;//correct:copy data from obj1 to s1 by calling default copy cunstructor
+    firstClass s2(obj2);//correct:copy data from obj2 to s2 by calling default copy cunstructor
+    firstClass s3;
+    s3=obj3;
+    return 0;
+}
+*second code (important idea):-count number of objects created and order of the creation of each object
+#include <iostream>
+using namespace std;
+class secondClass{
+    private:
+    static int count;
+    int k;
+    public:
+    secondClass()
+    {
+        count++;
+        k=count;
+    }
+    void get()
+    {
+        cout<<count<<' '<<k<<'\n';
+    }
+};
+int secondClass::count=0;// a way to define count (like cunstroctor),you must use it
+int main()
+{
+    secondClass obj1,obj2,obj3;
+    obj1.get();obj2.get();obj3.get();//3 1 ,3 2,3 3
+    return 0;
+}
+*Third code(important ideas):-
+#include <iostream>
+#include<bits/stdc++.h>
+using namespace std;
+class Complex{
+    private:
+    double r,im;
+    public:
+    Complex(double a=0.0,double b=0.0)
+    {
+        r=a;im=b;
+    }
+    void getData()
+    {
+        cout<<"Enter rare part: ";
+        cin>>r;
+        cout<<"Enter imaginary part: ";
+        cin>>im;
+    }
+    void showData()
+    {
+        cout<<"The complex number = ("<<r<<","<<im<<").\n";
+    }
+    void add(const Complex obj1,const Complex obj2)//phantom=obj3
+    {
+        r=obj1.r+obj2.r;
+        im=obj1.im+obj2.im;
+    }
+    Complex sub(const Complex obj2)const//phantom=obj1 is constant
+    {
+        Complex obj3;
+        obj3.r=r-obj2.r;
+        obj3.im=im-obj2.im;
+        return obj3;
+    }
+    Complex mul(const Complex obj2)const//phantom=obj1 is constant
+    {
+        double x=r*obj2.r-im*obj2.im;
+        double y=r*obj2.im+im*obj2.r;
+        return Complex(x,y);//put value of x,y in the complex cunstructor returned
+    }
+    Complex divi(Complex obj2)const//phantom=obj1 is constant
+    {
+        Complex obj3;
+        double d=obj2.r*obj2.r+obj2.im*obj2.im;
+        obj2.im*=-1;
+        obj3.r=r*obj2.r-im*obj2.im/d;
+        obj3.im=r*obj2.im+im*obj2.r/d;
+        return obj3;
+    }
+    double magnitude()const
+    {
+       double mag=pow(r,2)+pow(im,2);
+       mag=sqrt(mag);
+       return mag;
+    }
+    
+};
+int main()
+{
+    Complex obj1(5,3);
+    Complex obj2,obj3;
+    obj2.getData();
+    obj3.add(obj1,obj2);//phantom=obj3
+    obj3.showData();
+    obj3=obj1.sub(obj2);//phantom=obj1
+    obj3.showData();
+    obj3=obj1.mul(obj2);//phantom=obj1
+    obj3.showData();
+    obj3=obj1.divi(obj2);//phantom=obj1
+    obj3.showData();
+    cout<<obj2.magnitude()<<'\n';
+    return 0;
+}
+*********************************************************************************************
+*operators&overloading*
+كيفية التعامل مع الاوبجكت في العمليات العادية
+-overloading on prefix ++obj and postfix obj++ first code:
+#include <iostream>
+#include<bits/stdc++.h>
+using namespace std;
+class Counter{
+  private:
+  int c;
+  public:
+  Counter(int k=0)
+  {
+      c=k;
+  }
+  int retc()
+  {
+      return c;
+  }
+  Counter operator ++()//prefix overload
+  {
+      //Counter obj;
+      //obj.c=++c;
+      //return obj;
+      return Counter(++c);//this and precious commented lines are the same.
+  }
+  Counter operator ++(int)//postfix overload , int till the compiler that the operator overloading postfix 
+  {//int doesn't mean integer but special mark for the compiler to know the operator overloading postfix 
+      return Counter(c++);
+  }
+};
+int main()
+{
+    Counter c1,c2(4);
+    cout<<c1.retc()<<' '<<c2.retc()<<'\n';
+    ++c1;++c2;
+    cout<<c1.retc()<<' '<<c2.retc()<<'\n';
+    Counter c3=++c1;
+    cout<<c1.retc()<<' '<<c2.retc()<<' '<<c3.retc()<<'\n';
+    cout<<c3++.retc()<<'\n';
+    cout<<c3.retc();
+    return 0;
+}
+-second code:
+#include <iostream>
+using namespace std;
+class operatorOverloading{
+    private:
+    int a;
+    public:
+    operatorOverloading(int b=0)
+    {
+        a=b;
+    }
+    operatorOverloading operator +(const operatorOverloading obj2)const
+    {
+        operatorOverloading obj3;
+        obj3.a=a+obj2.a;
+        return obj3;
+    }
+    operatorOverloading operator -(const operatorOverloading)const;
+    bool operator >(const operatorOverloading obj2)const
+    {
+        //if(a>obj2.a)return 1;
+        //else return 0;
+        return a>obj2.a;
+    }
+    bool operator <=(const operatorOverloading obj2)const
+    {
+        return a<=obj2.a;
+    }
+    void display()
+    {
+        cout<<a<<'\n';
+    }
+};
+operatorOverloading operatorOverloading::operator -(const operatorOverloading obj2)const
+{
+    int b=a-obj2.a;
+    return operatorOverloading(b);
+}
+int main()
+{
+    operatorOverloading obj1(2),obj2(3),obj3;
+    obj3=obj1+obj2;
+    obj3.display();
+    obj3=obj2-obj1;
+    obj3.display();
+    obj3=obj1+obj2-obj3;
+    obj3.display();
+    if(obj1>obj2)cout<<"obj1\n";
+    else cout<<"obj2\n";
+    if(obj1<=obj2)cout<<"obj1\n";
+    else cout<<"obj2\n";
+    return 0;
+}
+-functions outside the class:
+#include <iostream>
+using namespace std;
+class name{
+  private:
+  int a;
+  public:
+  name(int b=0){a=b;}
+  int &reta(){return a;}//& allow to read or write values in function
+};
+void get(name &obj){cin>>obj.reta();}//&to change the value of obj
+void show(name obj){cout<<obj.reta();}
+int main()
+{
+    name obj;
+    get(obj);
+    show(obj);
+    return 0;
+}
+-friend functions-->outside the class but have the feature to use its data directly,there isn't phantoms.
+#include <iostream>
+using namespace std;
+class name{
+  private:
+  int a;
+  public:
+  name(int b=0){a=b;}
+  friend void get(name &);
+  friend void show(name);
+};
+void get(name &obj){cin>>obj.a;}
+void show(name obj){cout<<obj.a<<'\n';}
+int main()
+{
+    name obj;
+    get(obj);
+    show(obj);
+    return 0;
+}
+-overload cin>> ,cout>> using friend functions:
+#include <iostream>
+using namespace std;
+class name{
+  private:
+  int a;
+  public:
+  name(int b=0){a=b;}
+  friend istream& operator >>(istream &,name &);//overload cin,istream:input file,&:to allow update file
+  friend ostream& operator <<(ostream &,name);
+};
+istream& operator >>(istream &cin,name &obj)
+{
+    cin>>obj.a;
+    return cin;
+}
+ostream& operator <<(ostream &cout,name obj)
+{
+    cout<<obj.a<<'\n';
+    return cout;
+}
+int main()
+{
+    name obj;
+    cin>>obj;
+    cout<<obj;
+    return 0;
+}
+-overload [] -->use objects like array:
+#include <iostream>
+using namespace std;
+const int limit=100;
+class safeArray{
+    private:
+    int arr[limit];
+    public:
+    int &operator [](int idx)
+    {
+        if(idx<0||idx>=limit)
+        {
+            cout<<"out of bounds\n";
+            exit(1);//stop here and end the whole program.
+        }
+        return arr[idx];
+    }
+};
+int main()
+{
+    safeArray obj;
+    obj[10]=55;//put 55 at index 10 then return the value at index 10 .
+    int x=obj[10];//return the value at index 10.
+    cout<<x<<'\n';
+    obj[-1];
+    return 0;
+}
+*******************************************************************************
+*Inheritence:
+-derived (child) class inherit/take all features(variables,functions,..) from base (parent) class + its own feateures.
+-create new class (derived class) from the base class.
+-base class doesn't change.
+-provide reuseability.
+~public:used evrey where in the class , in the children,in main..
+~protected:used in class and children.
+~private:only in the class.
+-:-->inherit
+-call function from parent in child parent:fun()
+-cunstrctor child(data):parent(data){data}
+-data members in parent--->protected
+-code:
+#include <iostream>
+#include<bits/stdc++.h>
+using namespace std;
+class Counter{
+  protected:
+  int c;
+  public:
+  Counter(int k=0)
+  {
+      c=k;
+  }
+  int retc()
+  {
+      return c;
+  }
+  Counter operator ++()
+  {
+      return Counter(++c);
+  }
+  Counter operator ++(int)
+  {
+      return Counter(c++);
+  }
+};
+class CounterDn:public Counter{
+    private:
+    int x;
+    public:
+    CounterDn(int k=0,int w=0):Counter(k){x=w;}
+    //give c value by the cunstructor of parent and give x value = w
+    CounterDn operator --()
+    {
+        return CounterDn(--c);
+    }
+    //override the function retc from the parent
+    int retc()
+    {
+        if(c!=-1)return Counter::retc();//call function from the parent
+        else return -1;
+    }
+};
+int main()
+{
+    CounterDn c1,c2(7);
+    cout<<c1.retc()<<' '<<c2.retc()<<'\n';
+    ++c1;++c2;
+    cout<<c1.retc()<<' '<<c2.retc()<<'\n';
+    CounterDn c3=--c1;
+    //CounterDn c3=++c1; error as it first calculate ++c1 and return value of tybe counter and then try to but it in c3 which of type CounterDn
+    cout<<c1.retc()<<' '<<c2.retc()<<' '<<c3.retc()<<'\n';
+    cout<<c3++.retc()<<'\n';
+    --c3;
+    cout<<c3.retc()<<'\n';
+    return 0;
+}
+-code:
+#include <iostream>
+using namespace std;
+class employee{
+    private:
+    string name;
+    unsigned long number;
+    public:
+    void getData()
+    {
+        cout<<"Enter the name: "; cin>>name;
+        cout<<"\nEnter the number: "; cin>>number;
+    }
+    void putData()const
+    {
+        cout<<"The name is: "<<name<<'\n';
+        cout<<"The number is: "<<number<<'\n';
+    }
+};
+class manager:public employee{
+    private:
+    string title;
+    int club;
+    public:
+    //overriding
+ parent functions
+    void getData()
+    {
+        employee::getData();
+        cout<<"\nEnter the title: "; cin>>title;
+        cout<<"\nEnter the club: ";  cin>>club;
+    }
+    void putData()
+    {
+        employee::putData();
+        cout<<"The title is: "<<title<<'\n';
+        cout<<"The club is: "<<club<<'\n';
+    }
+};
+class labroer:public employee{
+    //have no own data but the data of the parent only
+};
+int main()
+{
+    manager obj1;
+    obj1.getData();
+    obj1.putData();
+    labroer obj2;
+    obj2.getData();
+    obj2.putData();
+    return 0;
+}
+-class child:public parent-->means the public data in the parent remain public in child(you can useit by objects from the child any where).
+-class child:private parent-->means the public data in the parent became private in child(you can only use it in the child class).
+-chid take features of parent and grandchild take feateures of parent and child.
+-code:
+#include <iostream>
+using namespace std;
+class A{
+    private:
+    int privdata;
+    protected:
+    int protdata;
+    public:
+    int publdata;
+};
+class B:public A{//public still public,take features of  A
+    public:
+    void fun()
+    {
+        int a=publdata;//ok
+        int b=protdata;//ok
+        //int c=privdata;//error (not accessable)
+    }
+};
+class C:private A{//public became private,take features of  A
+    public:
+    void fun()
+    {
+        int a=publdata;//ok
+        int b=protdata;//ok
+        //int c=privdata;//error(not accessable)
+    }
+};
+class D:public C{//take features of  A & B
+    public:
+    void fun()
+    {
+        //int a=publdata;//error as it inherit from c where public data became privata(not accessable)
+        //int b=protdata;//error as it inherit from c where protected data became privata(not accessable)
+        //int c=privdata;//error(not accessable)
+    }
+};
+int main()
+{
+    return 0;
+}
+-code:
+#include <iostream>
+using namespace std;
+class A{
+    private:
+    int privdata;
+    protected:
+    int protdata;
+    public:
+    int publdata;
+    void funA()
+    {
+        cout<<"aaaa\n";
+    }
+};
+class B{
+    public:
+    void funB()
+    {
+        cout<<"BBBBb\n";
+    }
+};
+class C:public A,private B{//I can use data from a in and out C but data from B only in C.
+    public:
+    void funC()
+    {
+        cout<<"ccc\n";
+    }
+};
+int main()
+{
+    C obj;
+    obj.funA();// C inherit data from A but it remain public  in c so it is    accessable outside class C.
+    //obj.funB(); C inherit data from B but it became private in c so it isn't accessable outside class C.
+    obj.funC();
+    return 0;
+}
+-ambiguous:
+#include <iostream>
+using namespace std;
+class A{
+    public:
+    void show()
+    {
+        cout<<"aaa\n";
+    }
+};
+class B{
+    public:
+    void show()
+    {
+        cout<<"bbb\n";
+    }
+};
+class C:public A,public B{
+    
+};
+class D:public C,public A{
+    
+};
+int main()
+{
+    C obj;
+    obj.show();//‘show’ is ambiguous,class c inherit 2 functions called show the compiler don't know which to use
+    D obj1;
+    obj1.show();//‘show’ is ambiguous,the compiler do the following:
+    /*
+    class D has function show()??
+    no!
+    go to parents 
+    class C and A have function show as C inherit it from A & B and A own it 
+    which one to use???????!
+    Errrrrror
+    */
+    return 0;
+}
+-diffrence between inheritence and classes withn class:
+=classes withn class-->define objects from another classes in the class and use it.
+=inheritence is better when the child class is the same as parent we only define the class without generating any functions.
+في التوريث لو الداله مش موجودة في الكلاس بيروح يدوؤ عليها في الاب اما في الحاله التانيه لازم تكريت الفانكشن ف الكلاس
+~to call function from parent by child-->child.parent::fun();
+******************************************************************
+*pointers:
+-the address is the first place in memory contain the variable.
+-code:
+int var1=5;cout<<&var1;//output the address of var1 in memory
+int var2=4;cout<<&var2;//output the address of var2 in memory
+//لو خزنا المتغيرين ورا بعض في الميموري هيكون الفرق بينهم 2 اللي هو طول المتغير الاول اللي هو انتجر
+-int *ptr--->pointer points to an integer address in memory.
+-pointer take adddress-->ptr=var1//erroor as the ptr isn't integer but address,but ptr=&var1 is correct.
+-pointers don't have data tybe-->pointer ptr///error,it point to a datatybe-->(int,char,className,..).
+-char* ptr1,ptr2,ptr3--->it'snot a difintion to 3 pointers (one pointer and 2 chars).
+-char *ptr1,*ptr2,*ptr3->difintion to 3 pointers.
+-cout<<ptr1;//output address
+-cout<<*ptr1;//output content in this address
+-the value of ptr=address,content of ptr=the value of var point to -->ptr=&var,var=5;*ptr is 5.
+-update ptr lead to update var-->*ptr=37;-->then var beacame =37.
+-in arrays the name of the array represent constant pointer to first place in memory contain first element and
+ other next elements is arr+index,arr[1]=*(arr+1),code:
+ int arr[]={1,2,3,4,5};
+ for(int i=0;i<5;i++)cout<<(arr+i)<<' '<<*(arr+i)<<'\n';//address content 
+ arr++;//error because this operation try to change the value of constant pointer.
+-void fun(int a)//call by value     void fun(int& a)//call by refrence   void fun(int *a)//call by pointer
+~array of chars contain '\0'=null=false at its end.
+-code:
+string s="aya";
+auto p=s.begin();
+while(*p)cout<<*p,p++;//print until *p reach 0.
+~strcpy(t,s);//copy array of char s into t.
+-const int *ptr;//pointer to constant integer.//you can give it many addresses but you can't change content.
+-int* const pointer;//constant pointer to integer, you can't give it more than 1 address but you can change content.
+-importance of using pointers:
+1-manage memory:
+  char* arrPtrs[3]={"aya","ahmed","karamah"};//define array of pointers manage memory as it safe memory
+  char* arrptrs[3][7]={"aya","ahmed","karamah"};//here you reserve 7 columns for each word which we don't need .
+  -new-->used to reserve place in memory,code:
+   char *str="aya";
+   int len=strlen(str);
+   char *ptr;
+   ptr=new char[len+1];
+   strcpy(ptr,str);
+   cout<<ptr;
+   delete[] ptr;//delete reserved memory,[] means delete any space reserved for ptr as ptr was array.
+   space you reserve in main deleted in main.
+   ..... ... ....... .. function deleted in function.
+   ..... ... ....... .. cunstrctor deleted in destructor. 
+  -code:
+   distance *ptr;//pointer to class called distance.
+   ptr = new distance;//make pointer points to new object.
+   ptr->getData();//access function called getData() from class distance.
+2-update values.-->look above.
+
+*Linked list:
+-link=data+pointer.
+-code:
+#include <iostream>
+using namespace std;
+struct link{
+    int data;
+    link *next;//pointeer to next link
+};
+class linkedList{
+    private:
+    link *first,*last;//points to first link
+    public:
+    linkedList(){first=NULL;last=NULL;}
+    void addFirst(int d)
+    {
+        link *newLink=new link;//reverse space = link for new pointer 
+        newLink->data=d;
+        newLink->next=first;
+        if(first==NULL)last=newLink;
+        first=newLink;
+        //first{NULL-NULL}
+        //first{NULL-newLink1}-->newLink1{d1,NULL}
+        //first{NULL-newLink2}-->newLink2{d2,NULL}-->newLink1{d1,NULL}
+    }
+    void addLast(int d)
+    {
+        link *newLink=new link;
+        newLink->data=d;
+        newLink->next=NULL;
+        last->next=newLink;
+        last=newLink;
+    }
+    void addBetween(int x,int y)//data of previous and new links
+    {
+        link *pre=first;
+        while(pre!=NULL)
+        {
+            if(pre->data==x)
+            {
+                link *newLink=new link;
+                newLink->data=y;
+                newLink->next=pre->next;
+                pre->next=newLink;
+                break;
+            }
+            pre=pre->next;
+        }
+        if(pre==NULL)cout<<"Can't be added,data not found\n";
+    }
+    void deletee(int d)
+    {
+        link *want=first;
+        while(want->next!=NULL)
+        {
+            if(want->next->data==d)
+            {
+                want->next=want->next->next;
+                break;
+            }
+            want=want->next;
+        }
+        if(want->next==NULL)cout<<"Can't delete non-founded data\n";
+    }
+    void display()
+    {
+        link *current=first;
+        while(current!=NULL)
+        {
+            cout<<current->data<<' ';
+            current=current->next;
+        }
+        cout<<'\n';
+    }
+};
+int main()
+{
+    linkedList *obj=new linkedList;
+    obj->addFirst(1);
+    obj->addFirst(2);
+    obj->addFirst(3);
+    obj->addLast(4);
+    obj->addLast(5);
+    obj->addFirst(6);
+    obj->addLast(7);
+    obj->addBetween(1,8);
+    obj->addBetween(0,9);
+    obj->display();//6 3 2 1 8 4 5 7
+    obj->deletee(4);
+    obj->display();//6 3 2 1 8 5 7
+    obj->deletee(0);
+    obj->display();//6 3 2 1 8 5 7
+    return 0;
+}
+********************************************************************************
+*virtual function and polymorphism:
+-this=pointer points to an object from the class(points to phantom);
+-code:
+#include <iostream>
+using namespace std;
+
+class myClass{
+    private:
+    int a;
+    public:
+    void get()
+    {
+        cin>>this->a;//cin>>a;
+    }
+    void show()
+    {
+        cout<<this->a;//cout<<a;
+    }
+};
+int main()
+{
+    myClass *obj=new myClass;
+    obj->get();
+    obj->show();
+    return 0;
+}
+-friend functions:outside the class but have features of class.
+-code:(important function)
+~to use private data from classes in outside function we declare function as friend function in classes.
+~friend function can be declared in private or public section in class .
+~to solve the problem that class beta isn't recognized in friend function of class alpha as it is declared 
+ after it we define it before class alpha like a prototype you can show this in code.
+#include <iostream>
+using namespace std;
+class beta;
+class alpha{
+    private:
+    int data;
+    public:
+    alpha(){data=3;}
+    int friend sum(alpha,beta);
+};
+class beta{
+    private:
+    int data;
+    int friend sum(alpha,beta);
+    public:
+    beta(){data=7;}
+};
+int sum(alpha a,beta b)
+{
+    return a.data+b.data;
+}
+int main()
+{
+    alpha a;
+    beta b;
+    cout<<sum(a,b);
+    return 0;
+}
+*virtual function and polymorphism:
+-when we need to define array of pointrs but each pointer points to an object from diffrent class , we
+ can create parent class contain data of all childs but as virtual function for compiler 
+ to understand this functions isn't used in parent but in children and define these functions in each
+ child so when you call them by pointers compiler know which child you mean in runtime with the help of 
+ V table(dynamic bilding)(make the program slow but more flexiable),this called polymorphism,
+ see code for more undrestand.
+ ~virtual :existing in apperance but on reality.
+-to do polymorphism we need 2 true conditinos:
+ 1-all classes inherit from one base class.
+ 2-functions in base class virtual
+~UPCASTING:define pointer of type parent but make it points to child.
+-code:(this code doesn't do polymorphism as function in parent class isn't virtual)
+#include <iostream>
+using namespace std;
+class parent{
+  public:
+  void show()//not virtual
+  {
+      cout<<"parent\n";
+  }
+};
+class child1:public parent
+{
+  public:
+  void show()
+  {
+      cout<<"child1\n";
+  }
+};
+class child2:public parent
+{
+  public:
+  void show()
+  {
+      cout<<"child2\n";
+  }
+};
+int main()
+{
+    child1 ch1;
+    child2 ch2;
+    parent *obj;
+    obj=&ch1;//UPCASTING
+    obj->show();//parent!! not child1 despite obj points to ch1??!
+    obj=&ch2;//UPCASTING
+    obj->show();//parent!! not child2 despite obj points to ch2??!
+    return 0;
+}
+-code:(this code do polymorphism as function in parent class isn't virtual)
+#include <iostream>
+using namespace std;
+class parent{
+  public:
+  virtual void show()
+  {
+      cout<<"parent\n";
+  }
+};
+class child1:public parent
+{
+  public:
+  void show()
+  {
+      cout<<"child1\n";
+  }
+};
+class child2:public parent
+{
+  public:
+  void show()
+  {
+      cout<<"child2\n";
+  }
+  void play()
+  {
+      cout<<"study\n";
+  }
+};
+int main()
+{
+    child1 ch1;
+    child2 ch2;
+    parent *obj;
+    obj=&ch1;//UPCASTING
+    obj->show();//child1
+    obj=&ch2;//UPCASTING
+    obj->show();//child2
+    //obj->play();error: ‘class parent’ has no member named ‘play’
+    //to make use of virtual function in parent class
+    parent p;
+    obj=&p;
+    obj->show();//parent
+    /**********Array**********/
+    parent *ptr[3]={&p,&ch2,&ch1};//Vtable
+    for(int i=0;i<3;i++)ptr[i]->show();//parent child2 child1
+    return 0;
+}
+*abstract class and pure virtual function
+-abstract class used in polymorphism.
+-you can't create object from abstract class.
+-abstract class contain pure virtual function.
+-pure virtual function doesn't have body.
+-code:
+class abstract{
+  public:
+  virtual int area()=0;//pure virtual function   
+}; 
+-if you call a function by an obj from child class ,the compiler search for this function in child class 
+ then in parent class,but if you call it by a pointer of parent type but child address it call it by parent .
+-code:
+#include <iostream>
+using namespace std;
+
+class A{
+    public:
+    void show()
+    {
+        cout<<"aaa\n";
+    }
+};
+class B:public A{
+    public:
+    void show()
+    {
+        cout<<"bbb\n";
+    }
+};
+class C:public A{};
+int main()
+{
+    A a;B b;C c;
+    a.show();b.show();c.show();//aaa bbb aaa
+    A *p;
+    p=&a;
+    p->show();//aaa
+    p=&b;
+    p->show();//aaa
+    p=&c;
+    p->show();//aaa
+    return 0;
+}

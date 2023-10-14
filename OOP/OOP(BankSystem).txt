@@ -1,0 +1,112 @@
+#include <iostream>
+#include<bits/stdc++.h>
+using namespace std;
+class Bank_System{
+  private:
+  struct data
+  {
+      string FirstName,LastName;
+      long long AccountNumber,Balance;
+  };
+  vector<data>Clients;
+  static long long account_number;
+  long long acc_num,money;
+  public:
+  void Add()
+  {
+      data d;
+      cout<<"Enter First Name : ";
+      cin>>d.FirstName;
+      cout<<"Enter Last Name : ";
+      cin>>d.LastName;
+      d.AccountNumber=++account_number;
+      d.Balance=0;
+      Clients.push_back(d);
+      cout<<"Your acount number is : "<<d.AccountNumber<<'\n';
+  }
+  void Search()
+  {
+      cout<<"Enter your account number : ";
+      cin>>acc_num;
+      for(auto it:Clients)
+      {
+          if(it.AccountNumber==acc_num)
+          {
+              cout<<"This account is found\n";
+              return;
+          }
+          
+      }
+      cout<<"We can't find your account\n";
+  }
+  void Show()
+  {
+      cout<<"Enter your account number : ";
+      cin>>acc_num;
+      for(auto it:Clients)
+      {
+          if(it.AccountNumber==acc_num)
+          {
+              cout<<"Your data is:\n";
+              cout<<"First Name : "<<it.FirstName<<'\n';
+              cout<<"Last Name: "<<it.LastName<<'\n';
+              cout<<"Balance : "<<it.Balance<<'\n';
+              return;
+          }
+          cout<<"We can't find your account\n";
+      }
+      
+  }
+  void Update()
+  {
+      cout<<"Enter your account number : ";
+      cin>>acc_num;
+      cout<<"Enter your money : ";
+      cin>>money;
+      for(int i=0;i<Clients.size();i++)
+      {
+          if(Clients[i].AccountNumber==acc_num)
+          {
+              Clients[i].Balance+=money;
+              cout<<"Your new balance is: "<<Clients[i].Balance<<'\n';
+          }
+      }
+  }
+  void Delete()
+  {
+      cout<<"Enter your account number : ";
+      cin>>acc_num;
+      for(int i=0;i<Clients.size();i++)
+      {
+          if(Clients[i].AccountNumber==acc_num)
+          {
+              Clients.erase(Clients.begin()+i);
+              cout<<"Account has been deleted\n";
+              return;
+          }
+      }
+      cout<<"We can't find your account\n";
+  }
+  void start()
+  {
+      cout<<"To add new account press 1\nTo search account press 2\nTo show your data press 3\n"<<
+      "To update your account press 4\nTo delete your account press 5\n";
+      int num;
+      cin>>num;
+      if(num==1)Add();
+      else if(num==2)Search();
+      else if(num==3)Show();
+      else if(num==4)Update();
+      else Delete();
+      cout<<"For another serviece press 1 , To end press 0 : ";
+      cin>>num;
+      if(num)start();
+  }
+};
+long long Bank_System::account_number=0;
+int main() {
+    Bank_System *client;
+    client=new Bank_System;
+    client->start();
+    return 0;
+}
