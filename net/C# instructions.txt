@@ -1,3 +1,20 @@
 1-ctrl+space :to complete the word you write in visual
 2-main called by CLR so it's static and doesn't need to create object from it to call it.
- 
+***********************************************************
+*Data types*
+-local variable stored in stack,but glopal variable in heap,in c++,but you know c# there are no global variables.
+*catigories of data type:
+-common language specification(CLS)-->specification of IL:
+=any data type compiled to IL follow "common type system"(CTS)
+=based on CTS there are 2 catigories of data type:
+1-value type:normal data type we know before ,struct,Enum(enumerator),int ,ll,bool,..(built in data tybes except string ,system object)
+2-refrence type:class,string(because it's dynamic) ,systm object
+~interface-->intialized inside struct-->value type.
+          -->intialized inside class--->refrence type.
+~int x; or int32 x;(the name of int in IL"base class library(BCL))-->allocate/intialize place in memory with no value(carbage)
+~x=5;remove garbage put 5;
+=System.object:is the parent class for all data tybes in .net(all data tybes inherit from it)-->directly or indirectly.
+~templet_class(genrix):allow you to write code without specifiying data tybes,but specifiy them during run time.
+
+
+
