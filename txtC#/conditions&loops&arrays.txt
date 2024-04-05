@@ -1,0 +1,208 @@
+*Conditions:
+-c# strongly type language--->íÚäí Çí Ìãáå ÇáßæãÈÇíáÑ áÇÒã íÊÃßÏ ÇäåÇ åÊäÛÚ ÞÈá ãÇ íÚÏíåÇ , for example : compiler can't implicit conversion from int to bool:
+ in c you can do :
+  int x=5;
+  if(x)do somthing ;
+ as ou deal with int as bool, but in c# this isn't valid as it deal with bool as bool and int as int.
+ if(x==5)do somthing;//valid in c#
+ 
+-switch advantage is that check once -->worst case=average=best=O(1) with integer ,as "case:" is a label not condition so when you tell:
+ switch(x){
+  case 1:
+  case 2:
+ }
+ means jumb to the value of x , go directly to matched case of x.
+ in strings like if else ,if cases<7 ,otherwise switch is better as it use hash table that decrease time.
+-break isn't optional in c# as c++ with switch.
+-code:
+using System;
+//using System.Collections.Generic;
+//using System.Linq;
+//using System.Text;
+//using System.Threading.Tasks;
+using static System.Console;//syntax sugar
+
+namespace ConsoleApp1
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+
+            #region conditions
+            int x = Convert.ToInt32(Console.ReadLine());
+            if (x == 1) Console.WriteLine("A");
+            else if (x == 2) Console.WriteLine("B");
+            else Console.WriteLine("C");
+
+            string s = Console.ReadLine();
+            switch (s)
+            {
+                case "A":
+                    Console.WriteLine(1);
+                    break;
+                case "B":
+                    Console.WriteLine(2);
+                    break;
+                case "C":
+                case "c": //like or
+                    Console.WriteLine(3);
+                    break;
+                default:
+                    Console.WriteLine(0);
+                    break;
+
+            }
+            switch (x)
+            {
+                case 1:
+                    Console.Write("A");
+                    goto case 2;
+                //break; //isn't important as it isn't reachable
+                case 2:
+                    Console.Write("B");
+                    goto case 3;
+                case 3:
+                    Console.WriteLine("C");
+                    break;
+                default:
+                    Console.WriteLine("N");
+                    break;
+            } 
+            #endregion
+        }
+    }
+}
+********************************************************************
+*loops : like c++
+-foreach:has no advantage
+foreach(int x in arr)
+{
+    Console.WriteLine(x);//x:iteration variable for loop arr[i]
+    //x read only
+}
+********************************************************************
+*types of variables scopes:
+-member variable(biggest scobe)-->local variables-->block scope(smallest scope).
+-code:
+using System;
+//using System.Collections.Generic;
+//using System.Linq;
+//using System.Text;
+//using System.Threading.Tasks;
+using static System.Console;//syntax sugar
+
+namespace ConsoleApp1
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            #region Block statement
+            //int x; cause errors in other scopes as it is defined as local variable.
+            //block scope
+            {
+                int x = 5;
+                x++;
+                Console.WriteLine(x);
+            }
+            //Console.WriteLine(x); error as x isn't intialized outsid the block scope.
+            {
+                int x = 9;
+                --x;
+                Console.WriteLine(x);
+            } 
+            #endregion
+        }
+    }
+}
+*********************************************************************************************
+*Arrays:
+-Arrays in c# are from refrence type.
+-object from array class.
+-code:
+using System;
+//using System.Collections.Generic;
+//using System.Linq;
+//using System.Text;
+//using System.Threading.Tasks;
+using static System.Console;//syntax sugar
+
+namespace ConsoleApp1
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            #region Intialization
+            //Array in c
+            //int arr[5];reserved 5 int places in memory called them arr
+            //Array in c#
+            int[] arr;//declare int for int arr but no bytes reserved
+            arr = new int[5];//reserved 5 int places in memory called them arr
+            for (int i = 0; i < arr.Length; i++)//length here is a proberity not function 
+            {
+                //you declare arr as a refrence from class Array.
+                //so Length may be a variable from this class.
+                //that contain the length of the arr.
+                Console.Write($"{arr[i]} , ");
+                arr[i] = i + 1;
+            }
+            Console.WriteLine("");
+            Console.WriteLine($"Size= {arr.Length} , Number of diminsions= {arr.Rank}.");
+            int[] arr1 = new int[5] { 3, 4, 5, 6, 7 };//you should give it exactly 5 elements
+            int[] arr2 = new int[] { 1, 2 };//compiler count elements
+            int[] arr3 = { 11, 9, 8, 10 };//syntax suger 
+            #endregion
+
+            #region sort
+            Array.Sort(arr3);
+            for (int i = 0; i < arr3.Length; i++) Console.Write($"{arr3[i]} , ");
+            Console.WriteLine("");
+            #endregion
+
+            #region Hashcode
+            Console.WriteLine($"{arr1.GetHashCode()} , {arr2.GetHashCode()}.");
+            arr2 = arr1;
+            Console.WriteLine($"{arr1.GetHashCode()} , {arr2.GetHashCode()}.");
+
+            //arr3 new object with new identity but the same state as arr1
+            //arr3 = arr1.Clone(); error can't assign object to int
+            //int[] =object; as arr3 is int[] but clone return object of tybe "system.object"
+            //in oop refToBase=derived --->Base=&derived
+            //here is the opposite as derived (arr3) points to base (object returned from clone)
+            //so compiler can't do implicit casting
+            //solution:
+            Console.WriteLine($"Before : {arr1.GetHashCode()} , {arr3.GetHashCode()}.");
+            arr3 = (int[])arr1.Clone();//explicit casting
+            Console.WriteLine($"After : {arr1.GetHashCode()} , {arr3.GetHashCode()}.");
+            for (int i = 0; i < arr3.Length; i++) Console.Write($"{arr3[i]} , ");
+            Console.WriteLine("");
+            #endregion
+
+            #region concatination
+            //concatination
+            string A = "abc", B = "xyz", str;
+            str = A + B;//don't use
+            str = $"{A}{B}";//better
+            Console.WriteLine(str);
+            #endregion
+
+            #region 2D Array
+            int[,] d = new int[3, 5];
+            for (int i = 0; i < d.GetLength(0); i++)
+                for (int j = 0; j < d.GetLength(1); j++)
+                    Console.WriteLine(i);
+            //GetLength(0)-->length of the first diminsion
+            //GetLength(1)-->length of the second diminsion 
+            #endregion
+
+
+        }
+    }
+}
+
+-split functions --->split string into spcefied or not spcefied number of substrings with empty including or not.
+                 --->you can split them by char or by strings.
+				 --->see:https://www.geeksforgeeks.org/string-split-method-in-c-sharp-with-examples/
+				 

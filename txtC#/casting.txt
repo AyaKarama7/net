@@ -1,0 +1,138 @@
+*Casting:
+-any class or structure inherits from system.object
+-Boxing : copy data from stack and but it in heap.
+-any structure or data type is a child to system.object.
+-unhandled exception means there is a problem but compilr & clr can't recognize it for examble overflow.
+-default value for any ref. tybe = null
+-code:
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Diagnostics;
+using static System.Console;//syntax sugar
+class dept
+{
+    public string name;
+}
+class emp
+{
+    public dept d;
+}
+namespace ConsoleApp1
+{
+    internal class Program
+    {
+        //struct temp
+        //{
+
+        //};
+        static void Main(string[] args)
+        {
+            #region Casting Built-in value types
+            //int x = 5;
+            //long y = long.MaxValue;
+
+            //y = x;//Int64=Int32,implicit,safe,and widing cast,compiler make sure no run time errors.
+            //y = (long)x;//explicit casting,here is optional as implicit casting by compiler is done.
+
+            ////x = y;Int32=Int64,unsafe as compiler can't make sure that the value in y can reserved in Int32
+            //x = (int)y;//explicit casting,must done as implicit casting by compiler can't be done.
+            ////if y value > maxInt --->overflow(we can't find true data),x will contain corrupted data.
+            ////default behaviour of clr will not throw overflow exception when overflow happens.
+
+            ////CLR will throw overflow exception
+            //checked
+            //{
+            //    x = (int)y;
+            //}
+
+            ////used in checked block to exclude a part from the block from being checked.
+            //unchecked
+            //{
+
+            //}
+
+            //Console.WriteLine($"x={x},y={y}.");
+
+            #endregion
+
+            #region Boxing & Unboxing
+            //specific case between system.object & any value type
+            //not an refrence type.
+            //int x = 5;//stored in stack
+            //object o1 = new object();//in heap
+            //o1 = x;//boxing operation,safe,base ref=child,take time to copy data from stack to heap.
+            //int y = (int)o1;//o1 must contain int value,explicit casting,compiler can't garntee runtime&exceptions,
+            //                //usafe,unboxing,derived=base,consume time to copy data from heap to stack.
+            //Console.WriteLine(y);//5
+            //o1 = "hi";//remove o1 from heap,intialize new objec o1 in heap,get it value="hi"
+            //y = (int)o1;//unhandeled exception
+            //Console.WriteLine(y);
+            #endregion
+
+            #region Nullable
+            //int x = 50;
+            ////x = null;error as null is the intial value of ref types so can't stored in stack
+            ////what to do if you read col=age from data base that contains null values????
+            //int? y;//Nullable int,IL: Nullable<int> x;genrix accept all int values +null.
+            //y = 50;//correct
+            //y = null;//correct
+            ////datatybe+?=this datatybe can store null
+            ////y = x;//safe casting
+            ////x = (int)y;//unsafe 
+            ////Console.WriteLine($"x= {x} \t y= {y}.");//unhandled exception,you can solve by protective programming
+            ////protective programming
+            //if (y != null) x = (int)y;
+            //else x = 0;
+            ////another way using nullabe properities
+            //if (y.HasValue) x = y.Value;
+            //else x = 0;
+            ////another way
+            //x = y.HasValue ? y.Value : 0;
+            ////the same as
+            //x = y ?? 0;
+
+            //Console.WriteLine($"x= {x} \t y= {y}.");//unhandled exception. 
+            #endregion
+
+            #region Null operators
+            //double d = default;//give d intial value of double
+            //int[] arr = default;//arr = null; refrence=null,points to null memory
+            //                    //Console.WriteLine(arr.Length);//no length as points to null memory
+            //                    //for (int i = 0; i < arr.Length; i++) 
+            //                    //Console.WriteLine(arr[i]);//null refrence exception
+            //                    //solution : but condition to check if arr=null
+            //for (int i = 0; (arr != null) && (i < arr.Length); i++)
+            //    Console.WriteLine(arr[i]);
+
+            ////Null propagation (conditional)operator
+            //for (int i = 0; i < arr?.Length; i++)//don't call Length if arr==null
+            //    Console.WriteLine(arr[i]);
+            //emp e = default;
+            //Console.WriteLine(e?.d?.name ?? "NA");//if (e&d&name !=null) output value else output NA
+            //int r = arr.Length;//unsafe
+            //int? rr = arr?.Length;//safe
+            //int rrr = arr?.Length ?? 0;//safe 
+            #endregion
+
+            #region Implicit typed local variables
+            ////c# is a staticly type language : you intialize var with a datatybe and this var remain with this data type
+            //double d = 15.3;
+            //Console.WriteLine(d.GetType());
+
+            //var v = 15.3;//like outo in c++
+            ////IL: double v=15.3
+            ////compiler detect variable datatype Based on the intial value
+            ////Implicit typed local variables
+            ////can't be uninialized , or intialized with null
+            //Console.WriteLine(v.GetType());
+            ////v = "hello";can't convert string to double
+
+            #endregion
+
+
+        }
+    }
+}

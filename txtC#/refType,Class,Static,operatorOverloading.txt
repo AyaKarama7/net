@@ -1,0 +1,93 @@
+*object intialization: see desktop/net/code/D04
+*to automatically generate property:
+ -stand on attribute 
+ -ctrl+.
+ -choose encabsulate&proberty
+--------------------------------------------------------------------------------------------
+*Access modifiers:
+-default access modifier inside class is private but default in namespace is internal 
+-to use project in another project:
+ =take refrence from p1 to p2 
+ =right click on dependences on p2 
+ =choose add project refrences(first choice)
+ =select project name p1
+ =on the program.cs of p2 write using p1;
+-Access modifiers:
+1-private:only in the same class
+2-private protected:only childs inside the same assemply file can access
+3-protected:the same class and any class inherits from it anywhere(outside or inside the assembly file).
+4-internal:any class inside the same assembly file.
+5-internal protected or protected internal :OR between internal and protected 
+                                           :Any class inherits this class(outside or inside the assembly file).
+										   :Any class at the same assembly file.
+6-public:anywher
+---------------------------------------------------------------------------------------------------
+*cunstrctor:
+-in struct:
+ =default ctor is exist even if you  create a user defined ctor and you can use it.
+ =in user defined ctor yo should give intial value to all attributes.
+ =no ctor chaning
+
+-in class :
+ =default ctor is generated only if there is no user defined ctor
+ =in user defined ctor you can:
+  !create many ctor
+  !give each ctor some attributes(you don't have to intialize all atributes as they already given intial value)
+  !if you give intial value to any variable in ctor you should give the others->public Cars(int _Id=1,string _Model="AA",int _cSpeed=60)
+  !ctor chaning
+ =ctor chaning means :
+  !use a ctor inside another ctor 
+--------------------------------------------------------------------------------------------------
+*interfaces:
+-class can implement multible interfaces
+--------------------------------------------------------------------------------------------------
+*copy Ctors:
+-there are 3 ways:
+ 1-=
+ 2-copy ctor
+ 3-clone
+--------------------------------------------------------------------------------------------------
+*destructor 
+-used with resources not under the management of garbage collector on heap like:
+ =database
+ =temporary file in disk
+-used to deallocate allocated memory
+-don't use it if not needed as this decrease performance
+-public
+-implemented when the object become unreachable 
+-------------------------------------------------------------------------------------------------
+*Static:
+-Old from c++:
+ =attribue is exist once in class 
+ =methods can be called using class with no need to create an instance/object(related to class)
+-New in c#:
+ =in c# you can't define stand alone function(fun not represent member in struct or class (global).
+-static function can't access object attribute directly , only static attributes or by objects--->such as main
+-static attributes allocated and intialized in heap before the start of class until the end of program or become unreachable
+-static ctor implemented only once before the first usage of class
+-object ctor implemented with evrey object created.
+-max one static ctor for class
+-static ctor parameterless
+-no static destructor
+-static class:
+ =container to onl static members
+ =no objects can be created from this class
+ =no inheritence 
+-singleTon design pattern principle:
+ =we have class that you can create from it only one object
+ =any update in this object change in the whole program
+ =ex:we have a company with 1 CEO so I neeed 1 object for him ,any change in its name changed in evrey where(salary class,dataBase )
+-----------------------------------------------------------------------------------------------
+*Overloading:
+-can't do operartor overloading to [],=
+-you must do operartor overloading using static method
+-compound operators (+=) already created by default when you overload operator(+) so you can't explicity overload them.
+-unary arthmatic operartor --->x = -y; x++; ++x;
+-binary arthmatic operartor--->x = z-y;
+-comparison operartors comes in pairs which means if you overload > then you should overload <
+-casting operartor overloading:
+ =you can't identify data type
+ =you should specify it is implicit or explicit casting
+ =you can do casting between classes or classes and structs
+---------------------------------------------------------------------------------------------------
+*code:net/code/D05

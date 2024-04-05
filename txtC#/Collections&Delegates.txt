@@ -1,0 +1,60 @@
+*Generic Collections:
+1-List
+2-Hashtable
+*Advantages of arrays:
+-can access any element randomly in O(1)
+*Disadvantages of arrays:
+-fixed size
+-waste space in memory
+*Advantages of linked-list:variable length
+*Disadvantages of linked-list:can't access elements randomly
+*ArrayList():
+-is a compention between array and list
+-can access any element randomly in O(1)
+-variable length
+*Disadvantages of using non-generic/system object Collections:
+-Boxing & UnBoxing
+-Compiler can't check type safety during compilation
+-The code is not alot readily
+*Solution :
+-use generic collections like :
+=List:
+~if addition and removal operations is bigger than travers operations use linked-linked-list
+ otherwise use list.
+*Dictionary:
+-like map in c++
+-diffrence between dictionary and indexer:
+ =dictionary optimize search operation
+ =indexer can be used for search or any other operation
+ =dictionary is a class contain indexers
+*******************************************TASK***************************************
+-What is the major diffrences between classes in collections.generic (set,sorteset...)
+**************************************************************************************
+*Pointer to function:
+-When i have big function (like sort) need smaller function (like compare) we have 2 senarios:
+1-implement smaller function from interface
+2-deliget:
+-language feature
+ =a way C# used to implement "pointerto function" approach
+-Advantages of deliget versus normal approach(interface,inheritence):
+ =only function signature is important
+ =Namme,access modifier, static or object all is not important as long as i can access the function
+ =in interface you can't chnge method name or implement static method but with deliget you can
+ =it is a kind of type safety in c#
+-Used in:
+ 1-parametrizing function call:When i have big function (like sort) need smaller function (like compare)-->single cast
+ 2-call back method-->multicast
+*Built in deligets : you can use as long as the function don't take more than 16 parameter
+*Anonymous methods:
+ -used once
+ -no need to give it name , the compiler do the job
+ -Implicit casting from function Body to pointer to function
+ -C# 2.0 feature
+*lambada expression:
+ -c# 3.0 feature
+ -functional programming
+ -=> fat arro, means "Goes to"
+ -اختصار
+ -build on anonymous method
+*Code:/net/code/Day7
+

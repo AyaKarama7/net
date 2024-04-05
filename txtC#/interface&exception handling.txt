@@ -1,0 +1,19 @@
+*The multible inheritence feature doesn't exist in c# (inherit from more than 1 parent) so we use interface
+*structur don't inherit
+*Interface:is an abstract class ,all members in it is abstract
+*we can't define data (attributes) at interface its just code contract (contain functions&properities).
+*interface is a prototype for public abstract methods.
+*any class or structure can implement interface,and should implement all functions from it.
+*advantages of interface:
+ -for your code to be open closed you have to develop against abstraction (use base not derived type) so your code
+  doesn't need to change with the new added datatype.
+ ~open close design pattern principle means the class should be open for extension closed for modification,
+  extend the behaviour without change the system.
+ ~Static methods (like the Main method in the example) operate in a static context and can only directly access other
+  static members of the class. If you need to use non-static members, you must create an instance of the class.
+*you cant create an instance(object) from abstract class or interface.
+*the only thing interface added is that manage class to implement it instead of inheritence.
+~try to minimal number of methods in interface as most as you could (each interface contain one method=very good case).
+-قلل علي اد م تقدر في try and catch
+*code:
+https://github.com/AyaKarama7/net/tree/main/Solution11

@@ -1,0 +1,185 @@
+1-ctrl+space :to complete the word you write in visual
+2-main called by CLR so it's static and doesn't need to create object from it to call it.
+***********************************************************
+*properties:
+-heap-->store refrence type ,implement processes as needed,store data common between many processes,store data with no fixed size,high overhead
+-stack->store value type ,implement processes from top to bottom,store values not common between functions or glopal to kill it after ending processes
+***********************************************************
+*Data types*
+-local variable stored in stack,but glopal variable in heap,in c++,but you know c# there are no global variables.
+*catigories of data type:
+-common language specification(CLS)-->specification of IL:
+=any data type compiled to IL follow "common type system"(CTS)
+=based on CTS there are 2 catigories of data type:
+1-value type:has fixed size in memory,normal data type we know before ,struct,Enum(enumerator),int ,ll,bool,..(built in data tybes except string ,system object)
+2-refrence type:class,string(because it's dynamic) ,system object,static variables,result of threads
+~interface-->intialized inside struct-->value type.
+          -->intialized inside class--->refrence type.
+~int x; or int32 x;(the name of int in IL"base class library(BCL)")-->allocate/intialize place in memory with no value(carbage)
+~x=5;remove garbage put 5;
+=System.object:
+  is the parent class for all data tybes in .net(all data tybes inherit from it)-->directly or indirectly.
+  has some behaviours(functions) supported in all data types in .net:
+    1-public virtual string toString()
+	2-public virtual int getHashCode()--->unique number for object (object identity).رقم الاوبجكت
+	 ~object identity-->place of object but not the address   object state-->content of object.
+	 ~if 2 objects have the same identity, then they are one object but(object with 2 refrences).
+	 ~has single usage with hashTable(dictionary).
+	 ~getHashCode return unique number given to object by CLR upon the creation and adding to heap.
+	3-public virtual bool equals()--->check equality of objects(==)
+	4-public tybe getTybe()-->return object contain a lot of information about data type of object regardless any refrence.
+  you override these functions in evrey class.
+~object state:data inside object-->data and what functions return.
+~system-->namespace   object-->class
+~templet_class(genrix):allow you to write code without specifiying data tybes,but specifiy them during run time.
+-in value type when you intialize object a space in memory reserved for it,but in refrence type no space reserved until using "new"-->obj=new class();
+~new:
+ turned in IL to newobj
+ Allocate recuired number of bytes in heap (object size+CLR overhead variables).
+ CLR overhead variables-->2 variables used by CLR their size is 64bit/variable (or 32 bit/variable حسب os archticture).
+ Intialize(cross out)allocated bytes--->givre them intial value
+ Call user defined constructor if exist.
+ Assign refrence to newly allocated object--->go to heap reserve place call it with the name of object.
+-obj2=obj1:
+ -obj2 become points to the same place in heap as obj1 
+ -obj2 address in heap became unreachable location removed by garbage collector algorithm
+ -obj1 & obj2 become share the same identity.
+ obj2      unreachable location
+      ---> 
+ obj1      obj1       obj2 
+
+~garbage collector stop the program while collecting garbage for milliseconds so we concerns about.
+**************
+*commands:
+-using static System.Console;//syntax sugar--->to avoid write "System.Console." to call any function.
+-if you have more than one main you should send paramater for compiler to know which main to use.
+-in .net5 and over you can skip main (don't write commands in).
+-in visual stdio to surround code -->ctrl+k+s توضح ان الجزء ده مع بعضه (code snippet)
+-code:
+using System;
+using static System.Console;//syntax sugar
+
+namespace ConsoleApp1
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+
+            System.Console.WriteLine("Hello world");
+            WriteLine("Aya");//syntax suger
+           
+            #region value tybe   //ctrl+k+s -->code snippet
+            int x;//Allocate 4 unintialized bytes in stack
+            x = 5;//intialize x
+            int y = x;//copy x in y
+            x++;//x increase but y still the same;
+            WriteLine(x);
+            WriteLine(y);
+            #endregion
+
+            #region refrence type
+            Object obj1;//zero bytes have been allocated in memory
+            //WriteLine(obj.GetHashCode());error -->unassigned local variable.
+            obj1 = new object();//allocate memory
+            //obj = new();//syntax sugar in c# 9
+            WriteLine(obj1.GetHashCode());//obj1 identity
+
+            //Object--->name in BCL(base class library)
+            //object--->key word in c# 
+            //Object is the same as object use any 
+
+            object obj2 = new object();
+            WriteLine(obj2.GetHashCode());//obj2 identity
+
+            obj2 = obj1;
+            WriteLine(obj1.GetHashCode());//obj1 identity
+            WriteLine(obj2.GetHashCode());//obj1 identity
+
+
+            #endregion
+
+
+
+        }
+    }
+}
+****************************************************
+*Built-in data types:
+-see p2 in photos.
+-byte--->unsigned single byte (the only unsigned data type).
+-sbyte-->signed single byte.
+-int---->2 bytes.
+-decimal>كسور,up to 28.
+-double->كسور,up to 16.
+-float-->كسور,up to 8.
+-char--->2 bytes.
+-ranges->see p3 & p4 in photos.
+-precedence & Assosiativity:some operators have more priority than others this is precedence , but som have the same priority so we use Assosiativity 
+(implement operators from legt to right or vice versa), see p5 in photos.
+-fractions by default double, so you can't write "float x=5.3;" you will recieve error(compiler can't cast from bigger (double) to smaller (float)),so you
+ need litral casting "float x=5.3f;"
+-if you don;t specifiy data type compiler but number in the smallest data tybe which can reserve it starting from int.
+-c# 7.x enable you to write long x=4_000_000_000 which means 4e9 (discard operation).
+-implicit casting-->compiler do it , there is no probability to lose data.
+-explicit casting-->programmer do it.
+-compiler in c# read values as string so to store it in int there are 2 ways:
+ =int.parse(console.readline())-->convert from string to int
+ =convert.Todatatybe()--->convert from any data tybe to any other data type.
+-code:
+using System;
+//using System.Collections.Generic;
+//using System.Linq;
+//using System.Text;
+//using System.Threading.Tasks;
+using static System.Console;//syntax sugar
+
+namespace ConsoleApp1
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+
+            #region string formating
+			int ss=1_000_000;//string discard.
+            float x = 5.3f;//litral casting,explicit casting
+            double y = 5.3;
+            decimal z = 5.3M;//litral casting,explicit casting
+            int var = 20;
+            WriteLine(var);//20
+            var = 0x_14;
+            WriteLine(var);//20
+            var = 0b_10100;
+            WriteLine(var);//20
+            int a, b;
+            //a = Console.ReadLine();can't implicity conver string to int
+            a = int.Parse(Console.ReadLine());
+            b = Convert.ToInt32(Console.ReadLine());
+            double d = Convert.ToDouble(Console.ReadLine());
+            string msg = String.Format("Sum : {0} + {1} = {2}.", a, b, a + b);
+            Console.WriteLine(msg);//sum : 2 + 3 = 5.
+            Console.WriteLine("Sum : {0} + {1} = {2}.", a, b, a + b);//sum : 2 + 3 = 5.
+            Console.WriteLine($"Sum : {a} + {b} = {a + b}.");//sum : 2 + 3 = 5.
+            //$:string manipulation operator.
+            Console.WriteLine($"Sum : {a} + {b} = {a + b:C}.");//output the result in currency format $5
+            Console.WriteLine($"Sum : {a} + {b} = {a + b:x}.");//output the result in hexadecimal
+            //see p6 in photos for neumirc formats.
+            Console.WriteLine($"Sum : {a,5} + {b,5} = {a + b,5}.");//print nymbers in 5 digits (take five places in consol).
+                                                                   //Sum :    33 +    44 =    77. align right , numbers is in right. 
+            #endregion
+
+
+
+
+        }
+    }
+}
+
+ 
+
+
+
+
+
+

@@ -1,0 +1,97 @@
+*Equality:
+-the diffrence between equality in identity and equality in state:see p8 in net/photos
+-the equality function in system.object is working based on identity.
+-ways to check equality of refrence type:(exist inside base class library)
+ 1-public virtual bool Equals(object o){}
+  =refrence equality:based on identity
+  =you can override it to be value equal
+  =represent a member in system.object
+ 2-public static bool Equals(object o1,object o2){return o1.Equals(o2);}
+  =refrence type id Equals is refrence otherwise it is value type
+  =represent a member in system.object
+ 3-public static bool RefrenceEquals(object o1,object o2){}
+  =refrence type
+  =you can't override or change it
+  =represent a member in system.object
+ 4-operator ==
+  =refrence type
+-you should safe your code aganist some unhandled exceptions while checking equality between 2 objects:
+ 1-null
+ 2-diffren types:string
+ 3-childs
+-Equality in structure (value type):(system.value)
+ 1-public virtual bool Equals(object o){}
+  =you can override it to improve performance because it is slow
+ 2-public static bool Equals(object o1,object o2){return o1.Equals(o2);}
+  =refrence type id Equals is refrence otherwise it is value type
+ 3-public static bool RefrenceEquals(object o1,object o2){}
+  =not suitable for value type equality
+ 4-operator ==
+  =not implemented so if you want to use it implement it
+-you don't need to handle null exception it is handled by default
+-you don't need to handle inheritence exception there is no inheritence in class
+-you should handle diffren types:string exception
+--------------------------------------------------------------------------------------------------------------
+*Inheritence:
+-inheritence is always public
+-Virtual function:
+ =dynamically binded 
+ =sholdn't be private but any access modifier (protected,public,internal...)
+--------------------------------------------------------------------------------------------------------------
+*Abstract:
+-abstract class: 
+ =you can't create object from it,only refrence to derived class
+ =it may not contain any abstract methods
+ =childeren should implement all abstract methods in the parent class
+ =if abstract class inherits from abstract class it shouldn't implement all abstract methods or properities
+-abstract method:
+ =should be used inside abstract class
+-abstract class Ctor used to intialize members of the abstract class inside child class
+--------------------------------------------------------------------------------------------------------------
+*Advantages of interface versus abstract class:
+-intrface can implemented by struct , structs can't inherit
+-class/struct can't implement more than 1 interface while classes can inherit only 1 class
+-one advantage of abstract classes that the have concrete functions(functions with a bodey,not abstract)
+--------------------------------------------------------------------------------------------------------------
+*Sealed
+-Sealed class:
+ =Can't inherit any class
+ =can inherit from other classes
+ =used in the last level of hirarchy (last class no class inherit it)
+~you can rpalace inheritence with composition
+-Sealed method:
+ =Can't overrided
+ =should be overrided function
+ =function can't be sealed in the first occurance for it
+---------------------------------------------------------------------------------------------------------------
+*Generix:
+-decrease the size of code we write
+
+-valid statements for all type parameters (you can easily use generix with):
+ 1-Declare variable -->T x; T y;
+ 2-x=default;
+ 3-Assignment operator -->x=y;
+ 4-return statement
+ 5-System.object:
+  =object o1=X;
+  =if(X.Equals(Y));
+  =if(X?.GetType()==Y?.GetType());
+  =int R=X?.GetHashCode??0;
+  =string str=X?.ToString();
+  
+-Invalid statements (need to do something to use or can't use it)
+ 1-intialize variable-->x=0; y=null; x=new T();  
+ 
+-Generic constraints:put some constraints on the accepted type parameter T to be accepted
+-we have 3 types of constraints:
+ 1-sacandary
+ 2-interface 
+ 3-primary constraints : 0 or 1 if exist it has one form:
+  =special primary constraints:
+  !class:T must be class -->allow null -->x=null ; if(x==y);
+  !struct:allow new T-->x=new T();
+  !System.enum 
+  =general primary constraints: 
+  !Point--->allow class point and all its childeren
+  =Ctor constraints:C# 9--->,new()--means-->datatype having accessable parameterless Ctor,can't be used with struct primary constraints
+  

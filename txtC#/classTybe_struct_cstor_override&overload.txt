@@ -1,0 +1,16 @@
+*namespace is the logical container for datatypes.
+*we can define 4 things at any class or structure : attributes(variables) , function , property , event(pointer function)-->put fun in variable.
+*default access level in struct in C# is private.
+*internal:a new accessable level at c# , means variable is accessable inside the assemply file inside the same project
+*for project to see or access another project:
+ -Right click on refrences(dependencies)
+ -choose projects(solution)
+ -choose project
+*default access modifier inside namespace is internal so to use class/struct from one project in onether you should define them with public
+~OVERLOADING:is a type of polymerphism,you create many function with the same name in the same class but work in diffrent ways,signature is diffrent
+ ,no keywords used,no need for inheritence it is happen in the same class.
+~OVERRIDING: the functions have the same name and signature but in diffrent classes,we use virtual keyword for the base class and override keyword for 
+ the derived class,need inheritence it happen in the derived class.
+-ctor--->cunstructor name in IL
+-see file:https://github.com/AyaKarama7/net/tree/main/Solution1
+ 

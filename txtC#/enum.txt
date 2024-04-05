@@ -1,0 +1,66 @@
+*Enum:
+-improve readability. 
+-is a rename for some integer values.
+-contain integer values renamed with labels you choose :enum grades{A,B,C} ,so I have 3 integers 0,1,2 named with labels A,B,C
+-code:
+using System;
+
+namespace ConsoleApp1
+{
+    internal class Program
+    {
+        //default start value=0,default datatype =int
+        enum Grades { a,b,c,d,f};
+        //change the values of the labels
+        enum branches { minia=12,mansoura=15,assiut=103,sv=254,ismailia,nasercity};
+        //change the datatybe
+        //we can't add nassercity as its value=256 which not fit in byte
+        enum branches1:byte { minia = 12, mansoura = 15, assiut = 103, sv = 254, ismailia};
+        //you can store 2 labels with the same value
+        enum Grades1 { a=1,b=1,c,d,f=2};
+        [Flags] //to tell clr each that value in this enum represent single bit
+        enum permissions : byte { read=0b_1,write=0b_10,excute=0b_0,delete=0b_0001000,rootuser=0b_011}
+        static void Main(string[] args)
+        {
+            Grades g = Grades.c;
+            g = Grades.a;
+            if (g == Grades.a) Console.WriteLine(":)");
+            g=(Grades)2;//c,stored in enum with the name c
+            Console.WriteLine(g);
+            g = (Grades)8;//8 ,not stored in enum
+            Console.WriteLine(g);
+
+            branches b = new branches();//default cunstructor with default value=0
+            Console.WriteLine(b);//0
+            b = branches.mansoura;
+            Console.WriteLine(b);//mansoura
+            b = branches.nasercity;
+            int x = (int)b;
+            Console.WriteLine(x);//256,continue after last int value and icrease 1
+
+            //flag bit:use one single byte to represent 8 bool values 
+            permissions p = permissions.delete;
+            Console.WriteLine(p);
+            p ^= permissions.write;
+            Console.WriteLine(p);
+            p ^= permissions.excute;
+            Console.WriteLine(p);
+            p ^= permissions.read;
+            Console.WriteLine(p);
+            p ^= permissions.read;
+            Console.WriteLine(p);
+            p = (permissions)3;//read write which represent 11 as enum=0000 1011 if rootuser don't exist ,else rootuser
+            Console.WriteLine(p);
+            if (p == permissions.read) Console.WriteLine("R");
+            else Console.WriteLine("Not R");
+            //Not R!!!!!!!!
+            //it compares all value not the first bit
+            //solution
+            if ((p & permissions.read)==permissions.read) Console.WriteLine("R");
+            else Console.WriteLine("Not R");
+            //R as p=0000 0011 read=0000 0001 and=0000 0001 which equal read i only make other permissions=0
+
+
+        }
+    }
+}

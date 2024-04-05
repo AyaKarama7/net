@@ -1,0 +1,22 @@
+-Sort--->Array.Sort(arr);
+-GetHashcode-->arr.GetHashcode()-->get object identity.
+-arr.GetLength(0)-->length of the first diminsion
+-arr.GetLength(1)-->length of the second diminsion
+-split functions --->split string into spcefied or not spcefied number of substrings with empty including or not.
+                --->you can split them by char or by strings.
+				--->see:https://www.geeksforgeeks.org/string-split-method-in-c-sharp-with-examples/
+				--->char[] sperator = { ' ' };string[] strList = s.Split(sperator);
+-Reverse--->Array.Reverse(arr);
+-Calculate time:
+ *Way1*
+ Stopwatch mys = new Stopwatch();
+ mys.Start();
+ mys.Stop();
+ Console.WriteLine(mys.ElapsedMilliseconds);
+ *Way2*
+ DateTime start = DateTime.Now;
+ DateTime end = DateTime.Now;
+
+ TimeSpan duration = end - start;
+ Console.WriteLine("Execution time: " + duration.TotalSeconds + " seconds");
+-

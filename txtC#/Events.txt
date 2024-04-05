@@ -1,0 +1,33 @@
+*Event-Driven programming
+-reaction based on specific action
+-based on the second useage of delegate (call back method)
+-Situation : I have 3 classes Ball,Players,refree when ball location change I want
+ players to run and refree to look.
+ Solution1:
+  =create list of players and list of refrees inside ball
+  =when ball location change loop on players and refrees lists 
+   and make them run or look
+  Disadvantages of solution1:
+   =it is open for extraction and modification (break down open-closed princible)
+  Look at p9 in /net/photos
+  Solution2:
+  =Event 
+*Event:
+-follow observer design pattern
+-make code open for extension closed for modification
+-see p10 in /net/photos
+-publisher:has action
+-subscriber:has reaction debend on publisher's action
+-steps:
+ =create event 
+ =the creation of the event result in list where subscribers can add their call back methods
+ =each subscriper send pointer to function wanted to implement as reaction to event created
+ =when action occur publisher notify subscribers by invoking (calling) the event
+ =then the event invoke all call back methods
+ =when new class created all it is need is to has a method suitable in signature with the
+  event created in publisher to subscribe it in event .
+
+
+   
+  
+        

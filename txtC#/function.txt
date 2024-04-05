@@ -1,0 +1,97 @@
+*function call stored in stack called stack frame 
+*ÑÕÉ Çá frames callec stack trace
+*frame contain all local variables in function
+*start from main to called functions ÈÇáÊÑÊíÈ
+*see p7 net photos
+*code:
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Diagnostics;
+using static System.Console;//syntax sugar
+using System.Diagnostics.CodeAnalysis;
+
+namespace ConsoleApp1
+{
+    internal class Program
+    {
+        public static void fun2()
+        {
+            Console.WriteLine("fun2");
+            //int a = 0;
+            //int b = 7 / a;
+            //when unhandled exception happened compiler creat an object of excepyion tybe
+            //contains stck trace property o type string contain data about called data that help you to solve exception.
+            //output implemented function in a reserved way --->fun2,fun1,println,main
+            StackTrace strace = new StackTrace();
+            StackFrame[] sframes = strace.GetFrames();
+            for (int i = 0; i < sframes.Length; i++) Console.WriteLine(sframes[i].GetMethod());
+
+        }
+        public static void fun1()
+        {
+            fun2();
+        }
+        //value type , pass by value
+        public static void printLine(int n = 5, string s = "#")
+        {
+            fun1();
+            int i = 0;
+            for (; i < n; i++) Console.Write(s);
+            Console.WriteLine("");
+        }
+        public static void swap(ref int a, ref int b)
+        {
+            Console.WriteLine($"a={a},b={b}");
+            int temp = b;
+            b = a;
+            a = temp;
+        }
+        public static void redeclare(int[] a)
+        {
+            Console.WriteLine(a[0]);
+            a[0] = 2;
+        }
+        public static void sumAndMul(int a, int b, out int s, out int m)
+        {
+            s = a + b;//give value
+            Console.WriteLine($"sum={s}");
+            m = a * b;
+            Console.WriteLine($"mul={m}");
+        }
+        static void Main(string[] args)
+        {
+
+            int x = 5;
+            Console.WriteLine(x);
+            printLine(7, "*");
+            Console.WriteLine(++x);
+            printLine(s: @"/**\", n: 3);//compiler replace paramaters and pass them to function
+            //@ -->tell compiler to use s as it , no special chars
+            printLine(s: "XxX");//send one paramter to fun and use others ss default
+            // \:skip sequence , skip what coming after it.
+            int a = 7, b = 3, m;
+            int[] arr = { 1 };
+            //pass tybe value by refrence 
+            swap(ref a, ref b);
+            Console.WriteLine($"a={a},b={b}");//3 7
+            //is the same as passing refrence type by value
+            redeclare(arr);
+            Console.WriteLine(arr[0]);//2
+            //pass by value:read only.
+            //pass by ref  :read and write.
+            //pass by out  :writ first,give var value in function first.
+            sumAndMul(a, b, out int s, out m);
+            sumAndMul(5, 9, out _, out m);
+            //diffrence between refrence by value and refrence by refrence
+            //pass refrence by value:as I change the name of the value ,ex:int[]arr={1,2} ,i passed fun(a) so
+            //the value={1,2} named as a in fun not arr but the refrence still the same and any change doesn't affect arr
+            //pass refrence by refrence:I change the name of the ref ,ex:fun(ref a) arr become a and any change affect arr
+
+
+
+        }
+    }
+}
