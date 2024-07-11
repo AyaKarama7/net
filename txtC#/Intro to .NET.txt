@@ -24,7 +24,7 @@
  -.net languages:
  1-visual basic:it isn't the old visual basic but only the same name,the same as c# in .net
  2-c#:automatic handling runtime and memory management,handling problems of cross platform
-   and cross languages,pure oop language :all is a member and no global variables.
+   and cross languages,pure oop language"means everything in the program is an object, including data types and functions. " :all is a member and no global variables.
  *any feature appear in the 2 languages at the same time.
  3-visual c++ .net-->not pure oop,there are glopal members,build native code not IL
  4-J#:discontinued-->ãÈÞÊÔ ãæÌæÏå
