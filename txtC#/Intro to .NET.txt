@@ -1,7 +1,7 @@
 -release of .net and c#:2002
 -linear(sequntial)programming--->code written withn the same function,maintanence is hard
 -structural(prosedural)programming->devide code into multible functions--->c language appeared
--oop--->appeared with c++ ,but first langage based on oop is "small type",-->Data,methods
+-oop--->appeared with c++ ,but first langage based on oop is "smalltalk",-->Data,methods
 -c--->c++--->c#
 -native code=machine language-->.exe,.dll
 -cpp--compiler-->.exe-->result =native code(in the assemply file-->.exe/.dll file)
@@ -27,7 +27,7 @@
    and cross languages,pure oop language :all is a member and no global variables.
  *any feature appear in the 2 languages at the same time.
  3-visual c++ .net-->not pure oop,there are glopal members,build native code not IL
- 4-J#:discontinued-->ãÈÞÊÔ ãæÌæÏå
+ 4-J#:discontinued-->Ã£ÃˆÃžÃŠÃ” Ã£Ã¦ÃŒÃ¦ÃÃ¥
  5-f#:function programming language
  
 -how c# solved the problem of cross platform??
@@ -47,20 +47,20 @@
  -this code is temporary(installed in RAM),so once we end the program end the native code 
   removed but the IL code is still stored in hard disk.
  -evrey platform needs its own .net framework(JIT)!!!
- -overhead at runtime due to Jitting but it isn't a big problem as:æÞÊ ãÞÇÑäÉ ÈÇáäÇÊíÝ
+ -overhead at runtime due to Jitting but it isn't a big problem as:Ã¦ÃžÃŠ Ã£ÃžÃ‡Ã‘Ã¤Ã‰ ÃˆÃ‡Ã¡Ã¤Ã‡ÃŠÃ­Ã
    =Jitting run using function call,so you only run needed function not all.
    =Jit compiler is very fast
    =Jitting happen only for first call as long as the programing not terminated
-   íÚäí ÇäÇ áãÇ ÈäÇÏí ÇáÝÇäßÔä áÇæá ãÑÉ ÈíÑæÍ íÚãáåÇ Jitting 
-   æíÎÒä ÇáäÇÊíÝ ßæ ÈÊÇÚåÇ Ýí ÇáÑÇã æ áãÇ íÍÊÇÌåÇ ÊÇäí ÈíÌíÈåÇ ãä ÇáÑÇã ØÇáãÇ ÇáÈÑäÇãÌ ãÝÊæÍ
+   Ã­ÃšÃ¤Ã­ Ã‡Ã¤Ã‡ Ã¡Ã£Ã‡ ÃˆÃ¤Ã‡ÃÃ­ Ã‡Ã¡ÃÃ‡Ã¤ÃŸÃ”Ã¤ Ã¡Ã‡Ã¦Ã¡ Ã£Ã‘Ã‰ ÃˆÃ­Ã‘Ã¦Ã Ã­ÃšÃ£Ã¡Ã¥Ã‡ Jitting 
+   Ã¦Ã­ÃŽÃ’Ã¤ Ã‡Ã¡Ã¤Ã‡ÃŠÃ­Ã ÃŸÃ¦ ÃˆÃŠÃ‡ÃšÃ¥Ã‡ ÃÃ­ Ã‡Ã¡Ã‘Ã‡Ã£ Ã¦ Ã¡Ã£Ã‡ Ã­ÃÃŠÃ‡ÃŒÃ¥Ã‡ ÃŠÃ‡Ã¤Ã­ ÃˆÃ­ÃŒÃ­ÃˆÃ¥Ã‡ Ã£Ã¤ Ã‡Ã¡Ã‘Ã‡Ã£ Ã˜Ã‡Ã¡Ã£Ã‡ Ã‡Ã¡ÃˆÃ‘Ã¤Ã‡Ã£ÃŒ Ã£ÃÃŠÃ¦Ã
  -easier to be attacked-->as attackers can decombile IL code and read it and also IL code is more readable than native code
   =.net reflector--->convert IL to c#,or VB,or any .net language(reverse engineer IL code)
   =ILspy-->you can veiw IL,reverse IL into c#.
   =solution:security by of security technique-->not easy to understand it,make the clean IL code in another form more 
    difficult to be understood,don't give clean IL to user but IL code produced by security by of security using
-   some tools called obufasectors tools.    clean IL-->obufasectors--->obufascated IL.ÇæÝíÓßÇÊæÑÒ
+   some tools called obufasectors tools.    clean IL-->obufasectors--->obufascated IL.Ã‡Ã¦ÃÃ­Ã“ÃŸÃ‡ÃŠÃ¦Ã‘Ã’
    make code not clean and then give it user
-  =ãÔ ãÔßáå ßÈíÑÉ ÈÇáäÓÈå ááæíÈ áÇä ÇáíæÒ ãÔ ãÚÇå ÇßÓÓ Úáí ÇáÈÇß ÇäÏ
+  =Ã£Ã” Ã£Ã”ÃŸÃ¡Ã¥ ÃŸÃˆÃ­Ã‘Ã‰ ÃˆÃ‡Ã¡Ã¤Ã“ÃˆÃ¥ Ã¡Ã¡Ã¦Ã­Ãˆ Ã¡Ã‡Ã¤ Ã‡Ã¡Ã­Ã¦Ã’ Ã£Ã” Ã£ÃšÃ‡Ã¥ Ã‡ÃŸÃ“Ã“ ÃšÃ¡Ã­ Ã‡Ã¡ÃˆÃ‡ÃŸ Ã‡Ã¤Ã
 
 -what if you want only some parts of your program to be native not IL?
  yes,you can write unsafe(as native code is unsafe,but IL is safe)
@@ -72,11 +72,11 @@
 -IS that means no cross platform exist until 2014??
  No,there were mono framework,mono project
  =mono project:open source frome work appeared within .net
- =parllel implementation for .net framework-->ÈíÔæÝ ÚäÏåã Çíå Ý ÏæÊ äÊ æ íÚãá Òíå
- =not official ãÔ ÊÈÚ ãÇíßÑæÓæÝÊ
- =åæ ÈíÞáÏ Çí ÍÇÌå ÈÊÙåÑ ãä ÏæÊ äÊ
+ =parllel implementation for .net framework-->ÃˆÃ­Ã”Ã¦Ã ÃšÃ¤ÃÃ¥Ã£ Ã‡Ã­Ã¥ Ã ÃÃ¦ÃŠ Ã¤ÃŠ Ã¦ Ã­ÃšÃ£Ã¡ Ã’Ã­Ã¥
+ =not official Ã£Ã” ÃŠÃˆÃš Ã£Ã‡Ã­ÃŸÃ‘Ã¦Ã“Ã¦ÃÃŠ
+ =Ã¥Ã¦ ÃˆÃ­ÃžÃ¡Ã Ã‡Ã­ ÃÃ‡ÃŒÃ¥ ÃˆÃŠÃ™Ã¥Ã‘ Ã£Ã¤ ÃÃ¦ÃŠ Ã¤ÃŠ
  =know called xamarine
- =ÈíßÊÈ C# ÚÇÏí
+ =ÃˆÃ­ÃŸÃŠÃˆ C# ÃšÃ‡ÃÃ­
 
 -.net core:
  =released-->2016
@@ -88,7 +88,7 @@
   on the machine.
  =faster
 
--.net framework/core--->CLR+BCL(base class libraries-->ÈÊÇÎÏåÇ ÌÇåÒÉ ãä ãÇíßÑæÓæÝÊ-->ex:console,in form of dll).
+-.net framework/core--->CLR+BCL(base class libraries-->ÃˆÃŠÃ‡ÃŽÃÃ¥Ã‡ ÃŒÃ‡Ã¥Ã’Ã‰ Ã£Ã¤ Ã£Ã‡Ã­ÃŸÃ‘Ã¦Ã“Ã¦ÃÃŠ-->ex:console,in form of dll).
 
 ************************************************************
 
