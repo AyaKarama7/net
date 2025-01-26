@@ -13,14 +13,16 @@ namespace ConsoleApp1
             //advantage of public attributes=you can use them easily
             e.id = 1;
             Console.WriteLine(e.id);
-            //disadvantage of public attributes:code become titly copied
+            //disadvantage of public attributes:code become tightly coupled(different parts of the codebase are heavily dependent on one another. 
+            //This tight coupling makes the code difficult to modify, test, or reuse because changes in one component often affect others.)
             //if you change name of var or any thing you should change it in the whole code
             //you can't filter values (if user input -10 for id it is accepted)
             //you can't manage access:you can't make read public and write private
 
             //solution1:encapsulation-->setters,getters
             //advantages:solve all problems of publics
-            //disadvantages:usage form not straight forward:form for setting another one for getting
+            //disadvantages:usage form not straight forward:form(method) for setting and another one for getting which is harder for developers as they need to understand 2 methods 
+            //and for users as 2 diffrent forms may confuse them and problems may occur in handling data like logical,datastructure,validation problems 
             e.setName("Aya Ahmed");
             Console.WriteLine(e.getName());
 
